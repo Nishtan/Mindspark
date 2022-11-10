@@ -30,6 +30,7 @@ const checkCollege = (req, res, next) => {
             if (err) {
                 console.log(err.message);
                 res.locals.college = null;
+                res.cookie('jwt', '', { maxAge: 1 });
                 res.redirect('/college/login');
             }
             else {
@@ -42,6 +43,7 @@ const checkCollege = (req, res, next) => {
                 }
                 else {
                     res.locals.college = null;
+                    res.cookie('jwt', '', { maxAge: 1 });
                     res.redirect('/college/login');
                 }
             }
@@ -49,6 +51,7 @@ const checkCollege = (req, res, next) => {
     }
     else {
         res.locals.college = null;
+        res.cookie('jwt', '', { maxAge: 1 });
         res.redirect('/college/login');
     }
 };
@@ -60,6 +63,7 @@ const checkStudent = (req, res, next) => {
         jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
+                res.cookie('jwt', '', { maxAge: 1 });
                 res.redirect('/student/login');
             }
             else {
@@ -72,12 +76,14 @@ const checkStudent = (req, res, next) => {
                 }
                 else {
                     res.locals.student = null;
+                    res.cookie('jwt', '', { maxAge: 1 });
                     res.redirect('/student/login');
                 }
             }
         })
     }
     else {
+        res.cookie('jwt', '', { maxAge: 1 });
         res.redirect('/student/login');
     }
 

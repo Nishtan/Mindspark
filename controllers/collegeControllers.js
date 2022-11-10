@@ -1,10 +1,41 @@
 const College = require("../models/college");
+const Lab = require("../models/lab");
 const { handleErrors } = require("../utils/errorHandler")
 const { createToken } = require("../utils/tokenCreate");
+
+//Lab controllers
+
+module.exports.labs_get = async (req, res) => {
+    const college = await College.findById(res.locals.college).populate("labs");
+
+    res.render("labs/index", { labs: college.labs });
+};
+
+module.exports.labs_new = (req, res) => {
+    res.render("labs/new");
+};
+
+module.exports.labs_post = async (req, res) => {
+    console.log(req.body);
+    const images = req.files.map(e => ({ url: e.path.replace("/upload", "/upload/w_241,h_164,c_scale"), filename: e.filename }));
+    const { name, deptName, capacity, slots } = req.body;
+    const college = await College.findById(res.locals.college);
+    const lab = await Lab.create({ name, deptName, images, capacity: parseInt(capacity), college: res.locals.college });
+    college.labs.push(lab);
+
+
+    await college.save();
+
+    res.redirect("/college/labs");
+};
+
+// Profile Controllers
 
 module.exports.profile = (req, res) => {
     res.render("college/profile")
 };
+
+// Authentication Controllers
 
 module.exports.login_get = (req, res) => {
     res.render("college/login");
@@ -27,6 +58,7 @@ module.exports.login_post = async (req, res) => {
 module.exports.register_get = (req, res) => {
     res.render("college/register");
 };
+
 module.exports.regsiter_post = async (req, res) => {
     const { name, email, password, pincode, state, city } = req.body;
 

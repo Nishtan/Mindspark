@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/college/labs" method="post" enctype="multipart/form-data">
+
+        <label for="name">Lab Name</label>
+        <input type="text" name="name" id="name">
+
+        <label for="deptName">Deaprtment Name:</label>
+        <input type="text" name="deptName" id="dept">
+
+        <label for="capacity">Capacity</label>
+        <input type="number" name="capacity" id="dept">
+
+        <label for="image"></label>
+        <input type="file" id="image" name="images" multiple>
+
+        <label for="9am-10am">9am - 10am</label>
+        <input type="checkbox" name="slots[]" id="9am-10am" value="9am-10am">
+
+        <label for="10am-11am">10am - 11am</label>
+        <input type="checkbox" name="slots[]" id="10am-11am" value="10am-11am">
+
+        <label for="11am-12pm">11am - 12am</label>
+        <input type="checkbox" name="slots[]" id="11am-12pm" value="11am-12pm">
+
+        <label for="12pm-1pm">12pm - 1pm</label>
+        <input type="checkbox" name="slots[]" id="12pm-1pm" value="12pm-1pm">
+
+        <label for="1pm-2pm">1pm - 2pm</label>
+        <input type="checkbox" name="slots[]" id="1pm-2pm" value="1pm-2pm">
+
+        <label for="2pm-3pm">2pm - 3pm</label>
+        <input type="checkbox" name="slots[]" id="2pm-3pm" value="2pm-3pm">
+
+        <label for="3pm-4pm">3pm - 4pm</label>
+        <input type="checkbox" name="slots[]" id="3pm-4pm" value="3pm-4pm">
+
+        <label for="4pm-5pm">4pm - 5pm</label>
+        <input type="checkbox" name="slots[]" id="4pm-5pm" value="4pm-4pm">
+
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>

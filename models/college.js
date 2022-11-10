@@ -16,22 +16,27 @@ const collegeSchema = new mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [6, 'Minimum Password length is 6 characters'],
     },
-    name:{
-        type:String,
+    name: {
+        type: String,
         required: [true, 'Please enter College name']
     },
-    state:{
-        type:String,
-        required:[true,'Please enter State']
+    state: {
+        type: String,
+        required: [true, 'Please enter State']
     },
-    city:{
-        type:String,
-        required:[true,'Please specify city']
+    city: {
+        type: String,
+        required: [true, 'Please specify city']
     },
-    pincode:{
-        type:Number,
-        required:[true,'Please enter a valid Pincode']
-    }
+    pincode: {
+        type: String,
+        required: [true, 'Please enter a valid Pincode']
+    },
+    labs: [{
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Lab"
+    }],
 });
 
 //Add hashing before saving in db
@@ -56,5 +61,5 @@ collegeSchema.statics.login = async function (email, password) {
     throw Error('Incorrect Email');
 };
 
-const College = mongoose.model("college", collegeSchema);
+const College = mongoose.model("College", collegeSchema);
 module.exports = College;

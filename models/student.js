@@ -40,6 +40,6 @@ studentSchema.statics.login = async function (email, password) {
     throw Error('Incorrect Email')
 }
 
-const Student = mongoose.model("student", studentSchema);
+const Student = mongoose.model("Student", studentSchema);
 module.exports = Student;
 
