@@ -28,14 +28,14 @@ db.once("open", () => {
     console.log("Database connected")
 });
 
-var cron = require('node-cron');
 
-cron.schedule('34 22 * * *', () => {
-    console.log('Running a job at 01:00 at America/Sao_Paulo timezone');
-  }, {
+var cron = require('node-cron');
+cron.schedule('0 12 * * Sun', () => {
+
+}, {
     scheduled: true,
     timezone: "Asia/Kolkata"
-  });
+});
 
 
 app.get('/', (req, res) => res.render('home'));

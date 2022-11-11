@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Slot = require("../models/slot");
 
 const labSchema = new mongoose.Schema({
     name: {
@@ -35,6 +36,21 @@ const labSchema = new mongoose.Schema({
             type: String
         }
     }]
+});
+
+labSchema.pre("save", async function (next) {
+    let endOfWeek = new Date;
+    endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
+    console.log("start of post");
+    for (let day = new Date; day <= endOfWeek; day.setDate(day.getDate() + 1)) {
+        for (const key of Object.keys(this.availableSlots)) {
+            if (this.availableSlots[key] == true) {
+                const slot = await Slot.create({ timings: key, lab: this._id, date: `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}` });
+                console.log(slot);
+            }
+        }
+    }
+    next();
 });
 
 const Lab = mongoose.model("Lab", labSchema);

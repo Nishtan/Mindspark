@@ -24,7 +24,6 @@ module.exports.labs_post = async (req, res) => {
         availableSlots[slot] = true;
     }
     const lab = await Lab.create({ name, deptName, images, capacity: parseInt(capacity), college: res.locals.college, availableSlots });
-    await lab.save();
 
     college.labs.push(lab);
 
@@ -74,7 +73,6 @@ module.exports.regsiter_post = async (req, res) => {
 
     } catch (error) {
         const errors = handleErrors("college", error);
-        console.log("errors are ", errors);
         res.json({ errors });
     }
 };
