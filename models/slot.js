@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const slotSchema = new Schema({
-    date: String,
+    date: Date,
     timings: String,
     lab: {
         type: Schema.Types.ObjectId,

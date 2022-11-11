@@ -2,6 +2,7 @@ const College = require("../models/college");
 const Lab = require("../models/lab");
 const { handleErrors } = require("../utils/errorHandler")
 const { createToken } = require("../utils/tokenCreate");
+const { availableSlots } = require("../utils/slotsCreate")
 
 //Lab controllers
 
@@ -16,13 +17,16 @@ module.exports.labs_new = (req, res) => {
 };
 
 module.exports.labs_post = async (req, res) => {
-    console.log(req.body);
     const images = req.files.map(e => ({ url: e.path.replace("/upload", "/upload/w_241,h_164,c_scale"), filename: e.filename }));
     const { name, deptName, capacity, slots } = req.body;
     const college = await College.findById(res.locals.college);
-    const lab = await Lab.create({ name, deptName, images, capacity: parseInt(capacity), college: res.locals.college });
-    college.labs.push(lab);
+    for (slot of slots) {
+        availableSlots[slot] = true;
+    }
+    const lab = await Lab.create({ name, deptName, images, capacity: parseInt(capacity), college: res.locals.college, availableSlots });
+    await lab.save();
 
+    college.labs.push(lab);
 
     await college.save();
 

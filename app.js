@@ -28,6 +28,16 @@ db.once("open", () => {
     console.log("Database connected")
 });
 
+var cron = require('node-cron');
+
+cron.schedule('34 22 * * *', () => {
+    console.log('Running a job at 01:00 at America/Sao_Paulo timezone');
+  }, {
+    scheduled: true,
+    timezone: "Asia/Kolkata"
+  });
+
+
 app.get('/', (req, res) => res.render('home'));
 app.use("/college", collegeRoutes);
 app.use("/student", studentRoutes);
