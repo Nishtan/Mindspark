@@ -39,14 +39,22 @@ const labSchema = new mongoose.Schema({
 });
 
 labSchema.pre("save", async function (next) {
-    let endOfWeek = new Date;
-    endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
-    console.log("start of post");
-    for (let day = new Date; day <= endOfWeek; day.setDate(day.getDate() + 1)) {
+    if (this.__v == undefined) {
+        let endOfWeek = new Date;
+        //Just for testing purposes
         for (const key of Object.keys(this.availableSlots)) {
             if (this.availableSlots[key] == true) {
-                const slot = await Slot.create({ timings: key, lab: this._id, date: `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}` });
-                console.log(slot);
+                const testslots = await Slot.create({ timings: key, lab: this._id, date: `${endOfWeek.getDate()}-${endOfWeek.getMonth()}-${endOfWeek.getFullYear()}`, capacityLeft: this.capacity });
+            }
+        }
+        endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
+
+        for (let day = new Date; day <= endOfWeek; day.setDate(day.getDate() + 1)) {
+            for (const key of Object.keys(this.availableSlots)) {
+                if (this.availableSlots[key] == true) {
+                    const slot = await Slot.create({ timings: key, lab: this._id, date: `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}`, capacityLeft: this.capacity });
+                    console.log(slot);
+                }
             }
         }
     }

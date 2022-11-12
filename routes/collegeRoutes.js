@@ -10,6 +10,7 @@ const { checkCollege } = require("../middleware/authMiddleware");
 router.get('/labs', checkCollege, collegeControllers.labs_get);
 router.get('/labs/new', checkCollege, collegeControllers.labs_new);
 router.post('/labs', checkCollege, upload.array('images'), collegeControllers.labs_post);
+router.get('/labs/:id',checkCollege,collegeControllers.bookings_get);
 
 router.get('/', checkCollege, collegeControllers.profile);
 

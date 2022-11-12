@@ -2,26 +2,6 @@ const jwt = require('jsonwebtoken');
 const College = require("../models/college");
 const Student = require("../models/student");
 
-const reqStudentAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
-    //check if token exists
-    if (token) {
-        jwt.verify(token, 'net ninja secret', (err, decodedToken) => {
-            if (err) {
-                console.log(err.message);
-                res.redirect('/student/login');
-            }
-            else {
-                console.log(decodedToken);
-                next();
-            }
-        })
-    }
-    else {
-        res.redirect('/student/login');
-    }
-};
-
 const checkCollege = (req, res, next) => {
     const token = req.cookies.jwt;
     //check if token exists
@@ -88,4 +68,4 @@ const checkStudent = (req, res, next) => {
     }
 
 }
-module.exports = { reqStudentAuth, checkCollege, checkStudent }
+module.exports = { checkCollege, checkStudent }

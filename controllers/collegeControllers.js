@@ -1,19 +1,25 @@
 const College = require("../models/college");
 const Lab = require("../models/lab");
+const Slot = require("../models/slot")
 const { handleErrors } = require("../utils/errorHandler")
 const { createToken } = require("../utils/tokenCreate");
 const { availableSlots } = require("../utils/slotsCreate")
 
-//Lab controllers
 
+//Booking controllers
+module.exports.bookings_get = async (req, res) => {
+    const { id } = req.params;
+    const slots = await Slot.find({ lab: id }).populate("lab").populate("students").exec();
+    res.render("lab/booking", slots);
+};
+//Lab controllers
 module.exports.labs_get = async (req, res) => {
     const college = await College.findById(res.locals.college).populate("labs");
 
-    res.render("labs/index", { labs: college.labs });
+    res.render("lab/index", { labs: college.labs });
 };
-
 module.exports.labs_new = (req, res) => {
-    res.render("labs/new");
+    res.render("lab/new");
 };
 
 module.exports.labs_post = async (req, res) => {
@@ -53,7 +59,7 @@ module.exports.login_post = async (req, res) => {
         res.status(201).json({ college: college._id });
 
     } catch (error) {
-        const errors = handleErrors("college", error)
+        const errors = handleErrors("College", error)
         res.json({ errors });
     }
 };
@@ -72,7 +78,7 @@ module.exports.regsiter_post = async (req, res) => {
         res.status(201).json({ newCollege });
 
     } catch (error) {
-        const errors = handleErrors("college", error);
+        const errors = handleErrors("College", error);
         res.json({ errors });
     }
 };

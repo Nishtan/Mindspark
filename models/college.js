@@ -8,7 +8,7 @@ const collegeSchema = new mongoose.Schema({
         required: [true, 'Please enter an email'],
         unique: true,
         lowercase: true,
-        validate: [isEmail, "Please enter validate email"]
+        validate: [isEmail, "Please enter valid email"]
         //checks validation,error message
     },
     password: {
@@ -41,18 +41,17 @@ const collegeSchema = new mongoose.Schema({
 
 //Add hashing before saving in db
 collegeSchema.pre("save", async function (next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-
+    if (this.__v == undefined) {
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(this.password, salt);
+    }
     next();
 });
 
 collegeSchema.statics.login = async function (email, password) {
     const User = await this.findOne({ email });
-
     if (User) {
         const auth = await bcrypt.compare(password, User.password);
-
         if (auth) {
             return User;
         }

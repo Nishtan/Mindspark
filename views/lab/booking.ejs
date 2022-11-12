@@ -9,14 +9,16 @@
 </head>
 
 <body>
-    <h1>List of Labs</h1>
-    <ul>
-        <% for(lab of labs) {%>
-            <li>
-                <%= lab.name %>
-            </li>
-            <% } %>
-                <ul>
+    <!-- 
+    slots is an array which gives all possible slots of given lab
+
+    To get info about lab in which slot is present
+    slots[i].lab
+
+    To get info about students present in slot
+    slots[i].students
+     -->
+    <h1>Booking of Labs</h1>
 </body>
 
 </html>

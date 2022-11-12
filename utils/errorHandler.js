@@ -1,6 +1,5 @@
-module.exports.handleErrors = (user,err) => {
+module.exports.handleErrors = (user, err) => {
     let error = { email: "", password: "" };
-    
     //Incorrect Email
     if (err.message === 'Incorrect Email') {
         error.email = 'Email Not Registered';
