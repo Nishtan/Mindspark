@@ -1,0 +1,82 @@
+Routes:
+
+1."/":
+
+        This is home Route containing option of college login and student login
+
+        Location:"views/home.ejs"
+
+2."/college":
+
+        This is profile page of college containing all information from college schema
+
+        Location:"views/college/profile.ejs"
+
+3."/college/register":
+        
+        This is registration page for college
+
+        Location:"views/college/register.ejs"
+
+3."/college/login":
+
+        This is login page for college
+
+        Location:"views/college/login.ejs"
+
+
+4. "/college/labs":
+        
+        This is rendering page for all college labs
+
+        Location:"views/labs/index.ejs"
+
+5. "/college/labs/new":
+        
+        This is page for making new labs for college
+
+        Location:"views/labs/new.ejs"
+
+6."/college/labs/:id":
+        This page is to check bookings made for the lab of college
+
+        Location:"views/labs/bookings.ejs"
+
+7."/student":
+
+        This is profile page of student containing all information from student schema
+
+        Location:"views/student/profile.ejs"
+
+8."/student/register":
+        
+        This is registration page for student
+
+        Location:"views/student/register.ejs"
+
+9."/student/login":
+
+        This is login page for student
+
+        Location:"views/student/login.ejs"
+
+
+10. "/student/labs":
+        
+        This is rendering page for all labs available in db
+
+        Location:"views/student/lab.ejs"
+
+11. "/student/labs/:id":
+        
+        This is page for checking slots for labs
+
+        Location:"views/student/slots.ejs"
+
+12. "/student/labs/booking":
+        
+        This is page for checking labs booked by student
+
+        Location:"views/student/bookings.ejs"
+
+

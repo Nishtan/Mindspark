@@ -41,12 +41,12 @@ const labSchema = new mongoose.Schema({
 labSchema.pre("save", async function (next) {
     if (this.__v == undefined) {
         let endOfWeek = new Date;
-        //Just for testing purposes
-        for (const key of Object.keys(this.availableSlots)) {
-            if (this.availableSlots[key] == true) {
-                const testslots = await Slot.create({ timings: key, lab: this._id, date: `${endOfWeek.getDate()}-${endOfWeek.getMonth()}-${endOfWeek.getFullYear()}`, capacityLeft: this.capacity });
-            }
-        }
+        //Just for testing purposes on sundays
+        // for (const key of Object.keys(this.availableSlots)) {
+        //     if (this.availableSlots[key] == true) {
+        //         const testslots = await Slot.create({ timings: key, lab: this._id, date: `${endOfWeek.getDate()}-${endOfWeek.getMonth()}-${endOfWeek.getFullYear()}`, capacityLeft: this.capacity });
+        //     }
+        // }
         endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
 
         for (let day = new Date; day <= endOfWeek; day.setDate(day.getDate() + 1)) {

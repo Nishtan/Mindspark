@@ -41,6 +41,7 @@ module.exports.bookings_get = async (req, res) => {
         let college = await College.findById(lab.college);
         return { slot, lab, college };
     }));
+    console.log(completeData);
     res.render("student/booking", { completeData })
 };
 //Profile controllers
