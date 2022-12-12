@@ -36,6 +36,14 @@
         <input id="city" name="city" type="text">
         <div class="city error"></div>
 
+        <label for="address1">Address Line 1</label>
+        <input id="address1" name="address1" type="text">
+        <div class="address1 error"></div>
+
+        <label for="address2">Address Line 2</label>
+        <input id="address2" name="address2" type="text">
+        <div class="address2 error"></div>
+
         <button>Sign up</button>
     </form>
     <script src="/javascripts/pincode.js"></script>
@@ -47,9 +55,9 @@
         const pincodeError = document.querySelector(".pincode.error");
         const stateError = document.querySelector(".state.error");
         const cityError = document.querySelector(".city.error");
-
-        console.log(nameError, pincodeError, stateError, cityError);
-
+        const address1Error=document.querySelector(".address1.error");
+        const address2Error=document.querySelector(".address2.error");
+        console.log(address1Error,address2Error);
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -59,23 +67,28 @@
             pincodeError.textContent = '';
             stateError.textContent = '';
             cityError.textContent = '';
+            address1Error.textContent='';
+            address2Error.textContent='';
 
             const name = form.name.value;
             const email = form.email.value;
             const password = form.password.value;
             const pincode = form.pincode.value;
             const city = form.city.value;
-            const state = form.state.value
+            const state = form.state.value;
+            const address1=form.address1.value;
+            const address2=form.address2.value;
+
             try {
                 const response = await fetch('/college/register', {
                     method: 'POST',
-                    body: JSON.stringify({ name, email, password, pincode, state, city }),
+                    body: JSON.stringify({ name, email, password, pincode, state, city,address1,address2 }),
                     headers: { 'Content-Type': 'application/json' }
                 });
 
                 const data = await response.json();
 
-                console.log(data);
+                
 
                 if (data.errors) {
                     emailError.textContent = data.errors.email;
@@ -85,6 +98,8 @@
                     stateError.textContent = data.errors.state;
                     cityError.textContent = data.errors.city;
                     stateError.textContent = data.errors.state;
+                    address1Error.textContent=data.errors.address1;
+                    address2Error.textContent=data.errors.address2;
                 }
                 else {
                     location.assign('/college'); //Redirect in frontend

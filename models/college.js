@@ -37,6 +37,14 @@ const collegeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Lab"
     }],
+    address1:{
+        type:String,
+        required:[true, 'Please enter the address field']
+    },
+    address2:{
+        type:String,
+        required:[true, 'Please enter the address field']
+    }
 });
 
 //Add hashing before saving in db

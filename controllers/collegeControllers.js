@@ -69,10 +69,10 @@ module.exports.register_get = (req, res) => {
 };
 
 module.exports.regsiter_post = async (req, res) => {
-    const { name, email, password, pincode, state, city } = req.body;
+    const { name, email, password, pincode, state, city, address1, address2 } = req.body;
 
     try {
-        const newCollege = await College.create({ name, email, password, pincode, state, city });
+        const newCollege = await College.create({ name, email, password, pincode, state, city, address1, address2 });
         const token = createToken(newCollege._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 })
         res.status(201).json({ newCollege });
