@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
 const collegeRoutes = require('./routes/collegeRoutes');
 const studentRoutes = require("./routes/studentRoutes");
+const Slot=require("./models/slot")
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -30,8 +31,19 @@ db.once("open", () => {
 
 
 var cron = require('node-cron');
-cron.schedule('0 12 * * Sun', () => {
+cron.schedule('0 12 * * Sun', async () => {
+    let endOfWeek = new Date;
 
+    endOfWeek.setDate(endOfWeek.getDate() - endOfWeek.getDay() + 6);
+
+    for (let day = new Date; day <= endOfWeek; day.setDate(day.getDate() + 1)) {
+        for (const key of Object.keys(this.availableSlots)) {
+            if (this.availableSlots[key] == true) {
+                const slot = await Slot.create({ timings: key, lab: this._id, date: `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}`, capacityLeft: this.capacity });
+                console.log(slot);
+            }
+        }
+    }
 }, {
     scheduled: true,
     timezone: "Asia/Kolkata"

@@ -1,6 +1,6 @@
 const College = require("../models/college");
 const Lab = require("../models/lab");
-const Slot = require("../models/slot")
+const Slot = require("../models/slot");
 const { handleErrors } = require("../utils/errorHandler")
 const { createToken } = require("../utils/tokenCreate");
 const { availableSlots } = require("../utils/slotsCreate")
